@@ -156,5 +156,5 @@ ar7-campaign-generator/
 
 ## Built by
 
-Amrith — EAE student, AI/ML enthusiast.  
+Amrith — EAC student, AI/ML enthusiast.  
 Built with Google Gemini, FastAPI, and React.

@@ -25,7 +25,7 @@
 /* ── GRAIN ── */
 .ar7-grain {
   position: absolute; inset: 0; z-index: 50; pointer-events: none;
-  mix-blend-mode: overlay; opacity: .9;
+  mix-blend-mode: overlay; opacity: .45;
   background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='250' height='250'%3E%3Cfilter id='f'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='250' height='250' filter='url(%23f)'/%3E%3C/svg%3E");
   animation: ar7-grain .14s steps(2) infinite;
 }
@@ -187,7 +187,6 @@
 .ar7-ti-hi { color: rgba(255,211,0,.5); }
 
 /* ══ COMBINED PRELOADER: Solar System + Terminal Boot ══ */
-
 .ar7-pre {
   position: absolute; inset: 0; z-index: 900;
   background: #06091A;
@@ -198,7 +197,6 @@
 }
 .ar7-pre.done { opacity: 0; visibility: hidden; }
 
-/* Blue/red aurora wash behind everything */
 .ar7-pre-aurora {
   position: absolute; inset: 0; z-index: 0; pointer-events: none;
   background:
@@ -207,42 +205,35 @@
     radial-gradient(ellipse 40% 35% at 50% 5%,  rgba(0,180,220,.12) 0%, transparent 70%);
 }
 
-/* ── Main inner: side-by-side on desktop, stacked on mobile ── */
 .ar7-pre-inner {
   position: relative; z-index: 1;
   display: flex; align-items: center; justify-content: center;
   gap: 2.8rem;
   width: 100%; max-width: 880px; padding: 0 2rem;
-  margin-top: -3rem;   /* add this */
+  margin-top: -3rem;
 }
 
 /* ══ SOLAR SYSTEM ══ */
 .ar7-solar {
   position: relative;
-  width: 300px;    /* was 278px */
-  height: 300px;   /* was 278px */
+  width: 300px; height: 300px;
   display: flex; align-items: center; justify-content: center;
   flex-shrink: 0;
 }
 
-/* Orbital ring */
 .ar7-orbit {
-  position: absolute;
-  border-radius: 50%;
+  position: absolute; border-radius: 50%;
   border: 1px solid transparent;
   top: 50%; left: 50%;
   transform: translate(-50%, -50%);
   transition: border-color .55s ease;
 }
-.ar7-orbit.on {
-  animation: ar7-orbit-appear .5s cubic-bezier(.34,1.56,.64,1) both;
-}
+.ar7-orbit.on { animation: ar7-orbit-appear .5s cubic-bezier(.34,1.56,.64,1) both; }
 @keyframes ar7-orbit-appear {
   from { opacity: 0; transform: translate(-50%,-50%) scale(.6); }
   to   { opacity: 1; transform: translate(-50%,-50%) scale(1); }
 }
 
-/* Planet pivot — spins around the sun */
 .ar7-planet-pivot {
   position: absolute; width: 100%; height: 100%; top: 0; left: 0;
   animation: ar7-pre-orbit-spin linear infinite;
@@ -253,7 +244,6 @@
   to   { transform: rotate(360deg); }
 }
 
-/* Wrapper — counter-rotates so icon stays upright, positioned at top of ring */
 .ar7-planet-wrapper {
   position: absolute;
   top: -14px; left: 50%;
@@ -265,7 +255,6 @@
   to   { transform: translateX(-50%) rotate(-360deg); }
 }
 
-/* Planet — the actual icon circle */
 .ar7-planet {
   width: 28px; height: 28px;
   border-radius: 50%; border: 1px solid;
@@ -273,18 +262,12 @@
   opacity: 0; transform: scale(0);
   transition: opacity .4s ease, transform .4s cubic-bezier(.34,1.56,.64,1), box-shadow .4s ease;
 }
-.ar7-planet.on {
-  opacity: 1; transform: scale(1);
-}
+.ar7-planet.on { opacity: 1; transform: scale(1); }
 
 .ar7-planet-ico { width: 14px; height: 14px; color: white; display: flex; align-items: center; justify-content: center; }
 .ar7-planet-ico svg { width: 100%; height: 100%; }
 
-/* AR7 Sun */
-.ar7-sun {
-  position: absolute; z-index: 5;
-  display: flex; align-items: center; justify-content: center;
-}
+.ar7-sun { position: absolute; z-index: 5; display: flex; align-items: center; justify-content: center; }
 .ar7-sun-inner {
   width: 50px; height: 50px; border-radius: 50%;
   background: radial-gradient(circle at 35% 35%, rgba(255,100,40,.95) 0%, #FF2D00 48%, rgba(160,18,0,.85) 100%);
@@ -309,12 +292,10 @@
   font-family: 'Space Mono', monospace;
   position: relative; overflow: hidden;
 }
-/* CRT scanline overlay */
 .ar7-terminal::before {
   content: ''; position: absolute; inset: 0; pointer-events: none; z-index: 0;
   background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,.045) 2px, rgba(0,0,0,.045) 4px);
 }
-/* Top-left red corner accent */
 .ar7-terminal::after {
   content: ''; position: absolute; top: -1px; left: -1px;
   width: 14px; height: 14px;
@@ -330,52 +311,36 @@
 }
 .ar7-terminal-dots { display: flex; gap: 5px; }
 .ar7-terminal-dots span { width: 10px; height: 10px; border-radius: 50%; display: block; }
-.ar7-terminal-title {
-  flex: 1; font-size: 8.5px; letter-spacing: .14em;
-  color: rgba(255,255,255,.22); text-align: center;
-}
+.ar7-terminal-title { flex: 1; font-size: 8.5px; letter-spacing: .14em; color: rgba(255,255,255,.22); text-align: center; }
 .ar7-terminal-pct { font-size: 8.5px; letter-spacing: .1em; color: rgba(255,45,0,.65); }
 
 .ar7-terminal-body {
   padding: .7rem .85rem;
-  min-height: 155px;
-  max-height: 215px;   /* was 195px */
-  overflow-y: auto;    /* add this */
-  overflow-x: hidden;  /* add this */
+  min-height: 155px; max-height: 215px;
+  overflow-y: auto; overflow-x: hidden;
   position: relative; z-index: 1;
 }
-/* hide the scrollbar visually */
 .ar7-terminal-body::-webkit-scrollbar { display: none; }
 .ar7-terminal-body { scrollbar-width: none; }
 
-/* Terminal line types */
 .ar7-tl { font-size: 9.5px; line-height: 1.8; animation: ar7-tl-in .12s ease both; }
 @keyframes ar7-tl-in { from { opacity:0; transform:translateX(-4px); } to { opacity:1; transform:none; } }
-.ar7-tl-gap { height: .5em; }
+.ar7-tl-gap    { height: .5em; }
 .ar7-tl-header { color: #FF2D00; }
 .ar7-tl-sub    { color: rgba(255,255,255,.28); font-size: 8.5px; }
 .ar7-tl-success{ color: rgba(80,200,120,.9); }
 .ar7-tl-final  { color: #FF2D00; }
-.ar7-tl-sys {
-  display: flex; justify-content: space-between; align-items: center;
-  color: rgba(255,255,255,.35);
-}
-.ar7-tl-ok { color: rgba(80,200,120,.8); font-size: 8.5px; letter-spacing: .06em; }
-.ar7-tl-plat {
-  display: flex; justify-content: space-between; align-items: center;
-}
-.ar7-tl-ready {
-  font-size: 7.5px; letter-spacing: .22em; text-transform: uppercase;
-  color: rgba(80,200,120,.8);
-}
-/* Blinking block cursor */
+.ar7-tl-sys    { display: flex; justify-content: space-between; align-items: center; color: rgba(255,255,255,.35); }
+.ar7-tl-ok     { color: rgba(80,200,120,.8); font-size: 8.5px; letter-spacing: .06em; }
+.ar7-tl-plat   { display: flex; justify-content: space-between; align-items: center; }
+.ar7-tl-ready  { font-size: 7.5px; letter-spacing: .22em; text-transform: uppercase; color: rgba(80,200,120,.8); }
+
 .ar7-cursor-blk {
   display: inline-block; width: 7px; height: 12px; vertical-align: middle;
   background: #FF2D00; margin-left: 2px;
   animation: ar7-blink .85s step-end infinite;
 }
 
-/* Progress bar in footer */
 .ar7-terminal-foot {
   padding: .4rem .85rem;
   border-top: 1px solid rgba(255,45,0,.1);
@@ -396,7 +361,6 @@
   box-shadow: 0 0 8px #FF2D00, 0 0 18px rgba(255,45,0,.8);
 }
 
-/* Calibration complete */
 .ar7-pre-done { display: flex; flex-direction: column; align-items: center; gap: .6rem; }
 .ar7-pre-cal-line {
   font-family: 'Space Mono', monospace; font-size: 7.5px;
@@ -428,18 +392,24 @@
   .ar7-terminal  { width: 100%; max-width: 100%; }
   .ar7-terminal-body { min-height: 130px; max-height: 160px; }
 }
+
 /* ── MAIN ── */
 .ar7-main { position: absolute; inset: 0; opacity: 0; visibility: hidden; z-index: 5; }
 .ar7-main.on { opacity: 1; visibility: visible; transition: opacity .9s ease .1s; }
 
-/* ── CONTENT ── */
+/* ── CONTENT CONTAINER ── */
+/* FIX: position:fixed anchors it to viewport, bottom:34px clears the ticker */
 .ar7-cnt {
-  position: fixed !important;
-  top: 0 !important;
-  bottom: 34px !important;
-  left: 0 !important;
-  right: 0 !important;
+  position: fixed;
+  top: 0; bottom: 34px; left: 0; right: 0;
+  z-index: 20;
+  display: flex; flex-direction: column; align-items: center;
+  justify-content: flex-start;
+  padding: 28px 3rem 50px;
+  gap: .45rem;
+  overflow: hidden;
 }
+
 .ar7-badge { display: inline-flex; align-items: center; gap: 6px; background: rgba(255,211,0,.06); border: 1px solid rgba(255,211,0,.18); padding: 3px 9px; font-size: 7px; letter-spacing: .22em; color: rgba(255,211,0,.6); }
 .ar7-bdot  { width: 4px; height: 4px; border-radius: 50%; background: var(--y); animation: ar7-blink 2s ease-in-out infinite; }
 @keyframes ar7-blink { 0%,100% { opacity: 1; } 50% { opacity: .1; } }
@@ -469,16 +439,15 @@
 .ar7-fd::before { content: ''; position: absolute; top: -1px; left: -1px; width: 10px; height: 10px; border-top: 2px solid var(--y); border-left: 2px solid var(--y); }
 .ar7-fd::after  { content: ''; position: absolute; bottom: -1px; right: -1px; width: 10px; height: 10px; border-bottom: 2px solid var(--r); border-right: 2px solid var(--r); }
 
-/* ── FIELD HEADER (new layout for label + inspire + number) ── */
+/* ── FIELD HEADER ── */
 .ar7-fh { display: flex; align-items: center; justify-content: space-between; margin-bottom: .15rem; }
 .ar7-fl-row { display: flex; align-items: center; gap: .5rem; flex: 1; }
-
 .ar7-fn { font-family: 'Bebas Neue', sans-serif; font-size: 2rem; color: rgba(255,211,0,.07); position: absolute; top: 4px; right: 8px; line-height: 1; }
 .ar7-fl { font-size: 11px; letter-spacing: .26em; text-transform: uppercase; color: rgba(255,211,0,.7); margin-bottom: .22rem; display: flex; align-items: center; gap: 6px; }
 .ar7-fl::after { content: ''; flex: 1; height: 1px; background: linear-gradient(90deg, rgba(255,211,0,.18), transparent); }
 .ar7-fds { font-size: 11.5px; color: rgba(255,255,255,.35); margin-bottom: .5rem; }
 
-/* ── TEXTAREA WRAP (for character counter) ── */
+/* ── TEXTAREA WRAP ── */
 .ar7-ta-wrap { position: relative; }
 .ar7-ta  { width: 100%; background: rgba(0,0,0,.55); border: 1px solid rgba(255,211,0,.06); color: rgba(255,255,255,.82); font-family: 'Space Mono', monospace; font-size: 13px; line-height: 1.7; padding: .65rem; resize: none; height: 90px; outline: none; transition: border-color .2s, background .2s; }
 .ar7-ta::placeholder { color: rgba(255,255,255,.12); }
@@ -556,11 +525,11 @@
 .ar7-po-bot-info { display:flex;justify-content:space-between;padding:.5rem 2rem;font-size:7.5px;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.16); }
 .ar7-po-bot-info span { color:rgba(255,211,0,.45); }
 
-/* ── LEGACY ERROR (replaced by ar7-error-state below) ── */
+/* ── LEGACY ERROR ── */
 .ar7-error { font-size:9px;letter-spacing:.1em;color:rgba(255,60,60,.8);border:1px solid rgba(255,60,60,.2);padding:.5rem .85rem;max-width:680px;width:100%; }
 
 /* ══════════════════════════════════════════
-   CANVAS v2 — Platform Pages
+   CANVAS v2
 ══════════════════════════════════════════ */
 .cv2-root { min-height:100vh; background:var(--bg); color:var(--fg); font-family:'Space Mono',monospace; display:flex; flex-direction:column; }
 
@@ -812,7 +781,7 @@
 .cv2-li-premium-card { background:rgba(195,125,22,.06); border:1px solid rgba(195,125,22,.25); border-radius:8px; padding:12px; }
 .cv2-li-news-card { background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.09); border-radius:8px; padding:12px; }
 
-/* ══ IMPROVEMENTS 12–20 ══ */
+/* ══ IMPROVEMENTS ══ */
 .cv2-page[data-dir="forward"] { animation: cv2-slide-fwd .38s cubic-bezier(.16,1,.3,1) both; }
 .cv2-page[data-dir="back"]    { animation: cv2-slide-back .38s cubic-bezier(.16,1,.3,1) both; }
 @keyframes cv2-slide-fwd  { from{opacity:0;transform:translateX(28px);}  to{opacity:1;transform:none;} }
@@ -863,7 +832,7 @@
 
 /* ── Mobile ── */
 @media (max-width: 768px) {
-  .ar7-cnt { padding: 50px 1.2rem 68px; gap: .75rem; }
+  .ar7-cnt { padding: 50px 1.2rem 68px !important; gap: .75rem !important; }
   .ar7-ir  { grid-template-columns: 1fr; }
   .ar7-vs, .ar7-ctrk, .ar7-ss { display: none; }
   .ar7-co  { display: none; }
@@ -916,12 +885,31 @@
 .ar7-glow-1 { background: #1A50FF !important; opacity: .06 !important; }
 .ar7-glow-2 { background: #FF2D00 !important; opacity: .05 !important; }
 .ar7-bd { background: radial-gradient(ellipse 65% 60% at 50% 50%, rgba(6,9,26,.9) 20%, rgba(6,9,26,.7) 48%, rgba(6,9,26,.08) 100%) !important; }
+
+/* Hero typography */
 .ar7-l1 { font-family: Impact, 'Arial Black', Arial, sans-serif !important; font-size: clamp(2.8rem, 7vw, 5.4rem) !important; line-height: .86 !important; color: #fff !important; letter-spacing: -.015em !important; text-shadow: none !important; }
 .ar7-l2 { font-family: Impact, 'Arial Black', Arial, sans-serif !important; font-size: clamp(2.8rem, 7vw, 5.4rem) !important; line-height: .86 !important; -webkit-text-stroke: 3px #FF2D00 !important; color: transparent !important; letter-spacing: -.015em !important; filter: none !important; }
 .ar7-sr { display: flex; align-items: center; gap: 0; margin: .3rem 0; }
 .ar7-sd { height: 2px !important; background: #FF2D00 !important; flex: 1 !important; max-width: none !important; border: none !important; }
 .ar7-sm { font-family: Impact, 'Arial Black', sans-serif; font-style: italic; font-size: .82rem !important; padding: .14rem .75rem !important; letter-spacing: .18em; color: #fff; background: #FF2D00; transform: skewX(-5deg); display: block; white-space: nowrap; }
-.ar7-cnt { justify-content: flex-start !important; padding: 28px 3rem 50px !important; gap: .45rem !important; }
+
+/* FIX: complete ar7-cnt definition — position:fixed clears the offset parent bug */
+.ar7-cnt {
+  position: fixed !important;
+  top: 0 !important;
+  bottom: 34px !important;
+  left: 0 !important;
+  right: 0 !important;
+  z-index: 20 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  padding: 28px 3rem 50px !important;
+  gap: .45rem !important;
+  overflow: hidden !important;
+}
+
 .ar7-ta { height: 64px !important; font-size: 9.5px !important; }
 .ar7-fds { margin-bottom: .25rem !important; }
 .ar7-ht { display: none !important; }
@@ -934,14 +922,19 @@
 .ar7-gb:active { background: #E02500 !important; }
 .ar7-gb.off { background: rgba(255,45,0,.1) !important; color: rgba(255,255,255,.25) !important; box-shadow: none !important; cursor: not-allowed !important; }
 
+/* Corner brackets */
 .ar7-co-tl { border-top-color: rgba(80,140,255,.55) !important; border-left-color: rgba(80,140,255,.55) !important; }
 .ar7-co-tr { border-top-color: rgba(80,140,255,.55) !important; border-right-color: rgba(80,140,255,.55) !important; }
 .ar7-co-bl { border-bottom-color: rgba(255,45,0,.3) !important; border-left-color: rgba(255,45,0,.3) !important; }
 .ar7-co-br { border-bottom-color: rgba(255,45,0,.3) !important; border-right-color: rgba(255,45,0,.3) !important; }
+
+/* System status */
 .ar7-ctrk { color: rgba(150,180,255,.2) !important; }
 .ar7-ctrk span { color: rgba(100,160,255,.7) !important; }
 .ar7-ss { color: rgba(150,180,255,.25) !important; }
 .ar7-ss em { color: rgba(100,160,255,.7) !important; }
+
+/* Input cards */
 .ar7-fd { background: rgba(6,9,26,.88) !important; border: 1px solid rgba(80,120,255,.15) !important; }
 .ar7-fd:hover { border-color: rgba(255,45,0,.35) !important; }
 .ar7-fl { color: rgba(255,45,0,.75) !important; }
@@ -949,20 +942,25 @@
 .ar7-fd::before { border-color: #FF2D00 !important; }
 .ar7-fd::after  { border-color: rgba(255,45,0,.55) !important; }
 .ar7-ta:focus { border-color: rgba(255,45,0,.3) !important; background: rgba(255,45,0,.012) !important; }
+
+/* Badge */
 .ar7-badge { background: rgba(60,100,255,.07) !important; border-color: rgba(60,100,255,.25) !important; color: rgba(100,150,255,.7) !important; }
 .ar7-bdot  { background: #4C8AFF !important; }
+
+/* Scrollers + ticker */
 .ar7-vi { color: rgba(80,120,255,.18) !important; }
 .ar7-tw { border-top-color: rgba(80,120,255,.1) !important; background: rgba(6,9,26,.97) !important; }
 .ar7-ti { color: rgba(255,255,255,.18) !important; }
 .ar7-ti-hi { color: rgba(255,45,0,.55) !important; }
 .ar7-ti::before { color: rgba(80,120,255,.6) !important; }
+
+/* Pipeline */
 .ar7-pa { color: rgba(255,45,0,.45) !important; }
 .ar7-ps { border-color: rgba(255,45,0,.1) !important; }
 .ar7-ps:last-child { border-color: rgba(255,45,0,.1) !important; }
 .ar7-orb { background: rgba(8,12,30,.7) !important; }
 
-/* ── BUG FIX #2: scissors row — transparent, no box ── */
-/* (ar7-cl is the scissors separator; ar7-cl-face is the cube left face) */
+/* Scissors row — transparent, no box */
 .ar7-cl {
   background: transparent !important;
   background-color: transparent !important;
@@ -971,7 +969,7 @@
   padding: 2px 0 !important;
 }
 
-/* ── BUG FIX #3: 01/02 field numbers — visible, static position ── */
+/* 01/02 field numbers */
 .ar7-fn {
   font-family: 'Bebas Neue', sans-serif !important;
   color: rgba(255,45,0,.65) !important;
@@ -979,97 +977,46 @@
   opacity: 1 !important;
   visibility: visible !important;
   display: block !important;
-  position: static !important;     /* override absolute so it sits in ar7-fh flex layout */
+  position: static !important;
   line-height: 1 !important;
   flex-shrink: 0 !important;
 }
 
 /* ══ FEATURES 5, 6, 10 ══ */
 
-/* Feature 5: Taller expandable palette blocks */
-.cv2-dna-palette-strip-v2 {
-  display: flex; height: 120px; border-radius: 4px;
-  overflow: hidden; border: 1px solid rgba(255,255,255,.07);
-}
-.cv2-dna-pal-block {
-  flex: 1; position: relative; cursor: pointer;
-  transition: flex .3s ease;
-}
+/* Feature 5: Taller expandable palette */
+.cv2-dna-palette-strip-v2 { display: flex; height: 120px; border-radius: 4px; overflow: hidden; border: 1px solid rgba(255,255,255,.07); }
+.cv2-dna-pal-block { flex: 1; position: relative; cursor: pointer; transition: flex .3s ease; }
 .cv2-dna-pal-block:hover { flex: 2.2; }
-.cv2-dna-pal-label {
-  position: absolute; bottom: 0; left: 0; right: 0;
-  padding: 8px 10px;
-  background: linear-gradient(to top, rgba(0,0,0,.5) 0%, transparent 100%);
-  display: flex; flex-direction: column; gap: 2px;
-  opacity: 0; transition: opacity .22s;
-}
+.cv2-dna-pal-label { position: absolute; bottom: 0; left: 0; right: 0; padding: 8px 10px; background: linear-gradient(to top, rgba(0,0,0,.5) 0%, transparent 100%); display: flex; flex-direction: column; gap: 2px; opacity: 0; transition: opacity .22s; }
 .cv2-dna-pal-block:hover .cv2-dna-pal-label { opacity: 1; }
-.cv2-dna-pal-role {
-  font-family: 'Space Mono', monospace;
-  font-size: 6.5px; letter-spacing: .2em; text-transform: uppercase;
-  color: rgba(255,255,255,.7);
-}
-.cv2-dna-pal-hex {
-  font-family: 'Space Mono', monospace;
-  font-size: 9.5px; font-weight: 700; color: #fff;
-  cursor: pointer; text-decoration: underline; text-underline-offset: 2px;
-  letter-spacing: .06em;
-}
+.cv2-dna-pal-role { font-family: 'Space Mono', monospace; font-size: 6.5px; letter-spacing: .2em; text-transform: uppercase; color: rgba(255,255,255,.7); }
+.cv2-dna-pal-hex  { font-family: 'Space Mono', monospace; font-size: 9.5px; font-weight: 700; color: #fff; cursor: pointer; text-decoration: underline; text-underline-offset: 2px; letter-spacing: .06em; }
 
 /* Feature 6: Platform-colored tab nav */
 .cv2-navbtn[data-tab="dna"]:hover      { color: #CAE4DB !important; }
 .cv2-navbtn[data-tab="thread"]:hover   { color: #CDC7BE !important; }
 .cv2-navbtn[data-tab="linkedin"]:hover { color: #87A7B3 !important; }
 .cv2-navbtn[data-tab="carousel"]:hover { color: #C97B84 !important; }
-
 .cv2-navbtn.active[data-tab="dna"]      .cv2-navbtn-bar { background: #CAE4DB !important; box-shadow: 0 0 10px rgba(202,228,219,.5); }
 .cv2-navbtn.active[data-tab="thread"]   .cv2-navbtn-bar { background: #CDC7BE !important; box-shadow: 0 0 10px rgba(205,199,190,.4); }
 .cv2-navbtn.active[data-tab="linkedin"] .cv2-navbtn-bar { background: #87A7B3 !important; box-shadow: 0 0 10px rgba(135,167,179,.5); }
 .cv2-navbtn.active[data-tab="carousel"] .cv2-navbtn-bar { background: #C97B84 !important; box-shadow: 0 0 10px rgba(201,123,132,.5); }
 
-/* Feature 10: Per-tweet copy button (appears on row hover) */
-.cv2-x-tweet-copy-btn {
-  display: none; align-items: center; justify-content: center;
-  background: transparent; border: 1px solid rgba(255,255,255,.1);
-  color: rgba(231,233,234,.35); cursor: pointer;
-  padding: 4px 7px; border-radius: 4px; margin-left: auto;
-  transition: all .18s; flex-shrink: 0;
-}
+/* Feature 10: Per-tweet copy button */
+.cv2-x-tweet-copy-btn { display: none; align-items: center; justify-content: center; background: transparent; border: 1px solid rgba(255,255,255,.1); color: rgba(231,233,234,.35); cursor: pointer; padding: 4px 7px; border-radius: 4px; margin-left: auto; transition: all .18s; flex-shrink: 0; }
 .cv2-x-tweet-row:hover .cv2-x-tweet-copy-btn { display: flex; }
-.cv2-x-tweet-copy-btn:hover {
-  color: rgba(255,255,255,.9);
-  background: rgba(255,255,255,.07);
-  border-color: rgba(255,255,255,.28);
-}
+.cv2-x-tweet-copy-btn:hover { color: rgba(255,255,255,.9); background: rgba(255,255,255,.07); border-color: rgba(255,255,255,.28); }
 
 /* ── Features 7, 8, 9, 11 ── */
-.ar7-char-count {
-  position: absolute; bottom: 5px; right: 7px;
-  font-family: 'Space Mono', monospace; font-size: 7px; letter-spacing: .1em;
-  color: rgba(255,255,255,.18); pointer-events: none; transition: color .2s;
-}
+.ar7-char-count { position: absolute; bottom: 5px; right: 7px; font-family: 'Space Mono', monospace; font-size: 7px; letter-spacing: .1em; color: rgba(255,255,255,.18); pointer-events: none; transition: color .2s; }
 .ar7-char-count.warn { color: rgba(255,45,0,.65); }
 
-.ar7-surprise-btn {
-  display: flex; align-items: center; gap: 4px;
-  font-family: 'Space Mono', monospace; font-size: 7px;
-  letter-spacing: .18em; text-transform: uppercase;
-  color: rgba(255,45,0,.55); background: rgba(255,45,0,.06);
-  border: 1px solid rgba(255,45,0,.18); padding: 2px 8px;
-  cursor: pointer; transition: all .2s; white-space: nowrap;
-}
-.ar7-surprise-btn:hover:not(:disabled) {
-  color: rgba(255,45,0,.9); background: rgba(255,45,0,.12);
-  border-color: rgba(255,45,0,.38);
-}
+.ar7-surprise-btn { display: flex; align-items: center; gap: 4px; font-family: 'Space Mono', monospace; font-size: 7px; letter-spacing: .18em; text-transform: uppercase; color: rgba(255,45,0,.55); background: rgba(255,45,0,.06); border: 1px solid rgba(255,45,0,.18); padding: 2px 8px; cursor: pointer; transition: all .2s; white-space: nowrap; }
+.ar7-surprise-btn:hover:not(:disabled) { color: rgba(255,45,0,.9); background: rgba(255,45,0,.12); border-color: rgba(255,45,0,.38); }
 .ar7-surprise-btn:disabled { opacity: .35; cursor: not-allowed; }
 
-.ar7-error-state {
-  display: flex; align-items: center; gap: .75rem; flex-wrap: wrap;
-  padding: .65rem 1rem; background: rgba(255,45,0,.06);
-  border: 1px solid rgba(255,45,0,.25); width: 100%; max-width: 680px;
-  animation: ar7-eu .3s ease both;
-}
+.ar7-error-state { display: flex; align-items: center; gap: .75rem; flex-wrap: wrap; padding: .65rem 1rem; background: rgba(255,45,0,.06); border: 1px solid rgba(255,45,0,.25); width: 100%; max-width: 680px; animation: ar7-eu .3s ease both; }
 .ar7-error-icon { font-size: 1rem; flex-shrink: 0; }
 .ar7-error-msg { flex: 1; font-family: 'Space Mono', monospace; font-size: 8.5px; letter-spacing: .1em; color: rgba(255,45,0,.75); line-height: 1.5; }
 .ar7-error-retry { font-family: Impact, 'Arial Black', sans-serif; font-size: .8rem; letter-spacing: .18em; background: transparent; border: 1px solid rgba(255,45,0,.4); color: rgba(255,45,0,.9); padding: .28rem 1rem; cursor: pointer; transition: all .2s; flex-shrink: 0; }
@@ -1077,3 +1024,7 @@
 
 .ar7-shortcut-hint { font-family: 'Space Mono', monospace; font-size: 7px; letter-spacing: .15em; text-transform: uppercase; color: rgba(255,255,255,.18); margin-top: .2rem; }
 .ar7-shortcut-hint kbd { background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.14); border-radius: 2px; padding: 1px 5px; font-family: inherit; font-size: inherit; }
+
+/* Cube left face (renamed from ar7-cl to avoid scissors row conflict) */
+.ar7-cl-face { transform: rotateY(-90deg) translateZ(55px) !important; border-color: rgba(255,0,80,.5) !important; background: rgba(14,4,10,.85) !important; }
+.ar7-cl-face svg { filter: drop-shadow(0 0 12px rgba(255,0,80,.9)) drop-shadow(0 0 20px rgba(0,230,255,.4)) !important; }

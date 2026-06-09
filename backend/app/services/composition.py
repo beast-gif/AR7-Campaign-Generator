@@ -9,7 +9,7 @@ from app.schemas.composition import ComposedCarousel, ComposedSlide
 def compose_carousel(dna: BrandDNA, carousel: Carousel) -> ComposedCarousel:
     composed: list[ComposedSlide] = []
     for slide in carousel.slides:
-        path = render_slide(slide, dna)
+        path = render_slide(slide, dna, total_slides=len(carousel.slides))
         composed.append(
             ComposedSlide(
                 position=slide.position,

@@ -1,6 +1,6 @@
 """Brand DNA generation service — wraps the Gemini call."""
 
-from google import genai
+from app.services.gemini_client import generate_with_fallback
 
 from app.config import settings
 from app.schemas.brand_dna import BrandDNA
@@ -19,7 +19,6 @@ Output strictly conforms to the provided schema."""
 
 
 def generate_brand_dna(seed: str, vibe: str, temperature: float = 0.9) -> BrandDNA:
-    client = genai.Client(api_key=settings.gemini_api_key)
 
     user = (
         f"SEED (what the campaign is about):\n{seed}\n\n"
@@ -27,9 +26,8 @@ def generate_brand_dna(seed: str, vibe: str, temperature: float = 0.9) -> BrandD
         "Synthesize the Brand DNA now."
     )
 
-    response = client.models.generate_content(
-        model=settings.gemini_model,
-        contents=user,
+    response = generate_with_fallback(
+    contents=user,
         config={
             "system_instruction": SYSTEM,
             "response_mime_type": "application/json",

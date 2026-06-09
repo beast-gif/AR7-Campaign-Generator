@@ -1,10 +1,8 @@
 """Instagram carousel generation service."""
 
-from google import genai
-
-from app.config import settings
 from app.schemas.brand_dna import BrandDNA
 from app.schemas.carousel import Carousel
+from app.services.gemini_client import generate_with_fallback
 
 SYSTEM = """You are a senior social designer writing an Instagram carousel post.
 
@@ -38,16 +36,13 @@ Output strictly conforms to the schema."""
 
 
 def generate_carousel(seed: str, dna: BrandDNA, temperature: float = 0.85) -> Carousel:
-    client = genai.Client(api_key=settings.gemini_api_key)
-
     user = (
         f"SEED:\n{seed}\n\n"
         f"BRAND DNA:\n{dna.model_dump_json(indent=2)}\n\n"
         "Write the carousel now."
     )
 
-    response = client.models.generate_content(
-        model=settings.gemini_model,
+    response = generate_with_fallback(
         contents=user,
         config={
             "system_instruction": SYSTEM,

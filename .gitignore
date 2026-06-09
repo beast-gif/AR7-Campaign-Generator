@@ -35,3 +35,4 @@ Thumbs.db
 .coverage
 htmlcov/
 backend/outputs/
+backend/fonts/

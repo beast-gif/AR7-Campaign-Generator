@@ -1,7 +1,6 @@
 """X thread generation service."""
 
-from google import genai
-
+from app.services.gemini_client import generate_with_fallback
 from app.config import settings
 from app.schemas.brand_dna import BrandDNA
 from app.schemas.thread import Thread
@@ -24,7 +23,6 @@ Output strictly conforms to the schema."""
 
 
 def generate_thread(seed: str, dna: BrandDNA, temperature: float = 0.85) -> Thread:
-    client = genai.Client(api_key=settings.gemini_api_key)
 
     user = (
         f"SEED:\n{seed}\n\n"
@@ -32,9 +30,8 @@ def generate_thread(seed: str, dna: BrandDNA, temperature: float = 0.85) -> Thre
         "Write the thread now."
     )
 
-    response = client.models.generate_content(
-        model=settings.gemini_model,
-        contents=user,
+    response = generate_with_fallback(   
+    contents=user,
         config={
             "system_instruction": SYSTEM,
             "response_mime_type": "application/json",

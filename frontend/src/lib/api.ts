@@ -1,6 +1,6 @@
 import type { Campaign, CampaignRequest } from '@/types/api'
 
-const BASE = 'http://localhost:8000'
+const BASE = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000'
 
 async function apiFetch<T>(path: string, init?: RequestInit): Promise<T> {
   const res = await fetch(`${BASE}${path}`, {
